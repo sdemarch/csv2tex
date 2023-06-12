@@ -6,7 +6,7 @@ import sys
 def tex_header(header: list) -> str:
     """
     This method builds a LaTeX header based on
-    the csv list of columns.
+    the csv list of columns. Uses booktabs environment.
 
     Parameters
     ----------
@@ -22,12 +22,13 @@ def tex_header(header: list) -> str:
     head = ('\\begin{table}\n'
             '\t\\centering\n'
             '\t\\caption{\\label{My awesome label} My awesome caption}\n'
-            '\t\\begin{tabular}{|')
+            '\t\\begin{tabular}{')
 
     for _ in header:
-        head += 'l|'
+        head += 'l'
 
     head += '}\n\t\t'
+    head += '\\toprule\n\t\t'
 
     # Column names
     cnt = 1
@@ -38,7 +39,7 @@ def tex_header(header: list) -> str:
         else:
             head += f"{c} \\\\ \n"
 
-    return head + '\t\t\\hline\n'
+    return head + '\t\t\\midrule\n'
 
 
 def tex_footer() -> str:
@@ -51,7 +52,7 @@ def tex_footer() -> str:
 
     """
 
-    return ('\\hline \n'
+    return ('\\bottomrule \n'
             '\t\\end{tabular} \n'
             '\\end{table}')
 
